@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "6049d9e3-2d36-421e-8136-0f47db003cbf",
+		"name": "mckjspostman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "register",
+			"description": "Register account using api\nTest cases\n- Register with missing password\n- Register with missing email\n- Register with valid email and valid password",
+			"item": [
+				{
+					"name": "Missing password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c8031d65-7fc0-4a9d-a56a-636509632e5f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "5bab8784-15b3-4b12-950f-4bf79f53646f",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Verify user get status 400 for not providing password\"] = responseCode.code === 400;",
+									"pm.test(\"Verify user get status correct error message for not providing password\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Missing password\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Provide email address and password"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"jerowine@hotmail.com\",\"password\":\"\"}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Missing email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6bd0b06-e8fb-417a-a7b7-fcf3a4ca450c",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify user get correct error message for not providing email\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Missing email or username\");",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"\",\"password\":\"Password01\"}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register successful",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c8031d65-7fc0-4a9d-a56a-636509632e5f",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "70416ff8-93a3-4c64-a675-003efcce3990",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Verify user get status 201 for not providing password\"] = responseCode.code === 201;",
+									"pm.test(\"Verify user get token when registering successful\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"QpwL5tke4Pnpja7X\");",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "Provide email address and password"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"email\":\"jerowine@hotmail.com\",\"password\":\"Password01\"}"
+						},
+						"url": {
+							"raw": "https://reqres.in/api/register?",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"register"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "jerowine@hotmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8286e7a9-bc78-45f5-a07e-e084bd06d399",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2084868-278e-42cc-b441-8b01f8d68d64",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "login",
+			"description": "",
+			"item": [
+				{
+					"name": "Invalid login with only email address provided",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45af6862-1a70-487d-81f5-0c746e32aea1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "d74d33bf-7ea7-44e8-b786-1377bc1ac099",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Missing password\");",
+									"});",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "jerowine@hotmail.com",
+									"description": "Provide email address",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://reqres.in/api/login",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid login with only password provided",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45af6862-1a70-487d-81f5-0c746e32aea1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "12699846-b6d1-41c3-8015-18b779a19697",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Missing email or username\");",
+									"});",
+									"",
+									"pm.test(\"Status code is 400\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "password",
+								"value": "Password01",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "password",
+									"value": "Password01",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://reqres.in/api/login?email=peter@klaven",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "peter@klaven"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid login with valid details",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "45af6862-1a70-487d-81f5-0c746e32aea1",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c4624d68-956b-41b9-8f2c-d00dd397859f",
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Body matches string\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"token\");",
+									"});",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "jerowine@hotmai.com",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password01",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://reqres.in/api/login?email=",
+							"protocol": "https",
+							"host": [
+								"reqres",
+								"in"
+							],
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
